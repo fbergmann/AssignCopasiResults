@@ -1,7 +1,7 @@
 ## Assign COPASI Results
 This Repository contains a number of tools that make it easy to deal with incomplete parameter estimation runs from COPASI. All you need is a partial `parameter estimation report` and the `original COPASI file` that was used to run the parameter estimation. From here the tool can generate a new COPASI file with the found fit. 
 
-For more information also see the [documentation](2012-03-30_-_ApplyingCOPASIResults.pdf).
+For more information also see the [documentation](https://github.com/fbergmann/AssignCopasiResults/blob/master/2012-03-30_-_ApplyingCOPASIResults.pdf?raw=true).
 
 ## License
 Copyright (c) 2012-2015, Frank T. Bergmann  

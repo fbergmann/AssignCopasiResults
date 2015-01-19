@@ -234,3 +234,4 @@ MvcIdentifyability/bin
 MvcIdentifyability/obj
 MvcIdentifyability/Uploads
 
+*.exe
