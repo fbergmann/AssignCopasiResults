@@ -1,0 +1,74 @@
+﻿@using LibCopasiResults
+@model CheckPoint
+
+@{
+    Response.Expires = -1;
+    var current = (CopasiResult)Session["current"];
+    var haveData = (string)Session["datafile"] != null && System.IO.File.Exists((string)Session["datafile"]);
+}
+
+<div>
+    <p>
+        You selected the result with the best value:
+            <pre>@Model.BestValue</pre>
+        You have several options now. You can:
+    </p>
+    <ol class="round">
+        <li class="one">
+            <h5>Assign as Current State</h5>
+            This will download a new COPASI file, with the selected checkpoint as current model state. <br />
+            @Html.ActionLink("Download COPASI file", "AssignCurrentState", "Home", new { selected = @Model.BestValue }, new {@class="jqui_button" })
+        </li>
+        <li class="two">
+            <h5>Assign as Start value for another @(current.IsOptimization ? "Optimization" : "Parameter Estimation")</h5>
+            This will download a new COPASI file, with the selected checkpoint as task start value.<br />
+            @Html.ActionLink("Download COPASI file", "AssignTaskStartValue", "Home", new { selected = @Model.BestValue }, new {@class="jqui_button" })
+        </li>
+        @if (haveData)
+        {
+            <li class="three">
+                <h5>Compute Current Solution Statistic</h5>
+                Assuming you uploaded also your experimental data, then you could run a current solution statistic here. 
+                (Experimental)<br />
+                @Html.ActionLink("Plot Solution Statistic", "PlotSolutionStatistic", "Home", new { selected = @Model.BestValue }, new {@class="jqui_button" })
+            </li>
+        }
+    </ol>
+</div>
+
+<div class="jqui_accordion">
+    <h3>Current Values</h3>
+    <div>
+        
+        Best Value: @Model.BestValue
+        Number of Evaluations: @Model.FunctionEvaluations
+				
+        Current Values:
+        <pre>	
+             @foreach (var value in @Model.Parameters)
+             {
+                 @value @:&nbsp;
+             }
+			 
+	    </pre>
+
+    </div>
+</div>
+
+  <script>       
+
+        $(function () {
+
+            $(".jqui_accordion").accordion({
+                heightStyle: "content",
+                collapsible: true,
+                active:false
+
+            });
+
+            $(".jqui_button").button({
+                
+            });
+
+        });
+    </script>

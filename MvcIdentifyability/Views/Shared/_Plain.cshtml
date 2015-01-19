@@ -1,0 +1,26 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - Identifyability</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
+        <link href="~/Content/themes/base/jquery.ui.all.css" rel="stylesheet" />
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        <script src="~/Scripts/Highcharts-2.2.1/js/highcharts.js"></script>
+        <script src="~/Scripts/Highcharts-2.2.1/js/modules/exporting.js"></script>
+    </head>
+    <body>
+        
+        <div id="body">
+            <section class="clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

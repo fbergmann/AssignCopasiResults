@@ -1,0 +1,66 @@
+﻿
+@{
+    ViewBag.Title = "Assign Results";
+}
+<h1>@ViewBag.Title.</h1>
+
+<p>
+This website uses <a href="http://www.copasi.org">COPASI</a> to update model values from a previous report file. @Html.ActionLink("Learn more…", "About")
+</p>
+
+<h3>Lets get started</h3>
+
+@using (Html.BeginForm("Generate", "Home", FormMethod.Post, new {enctype = "multipart/form-data", onsubmit = "return submitted()"}))
+{
+    @Html.ValidationSummary(true)
+
+    <ol class="round">
+        <li class="one">
+            <h5>Upload the Report file</h5>
+            Please upload the report file, you would like to use:
+            <input type="file" id="reportfile" name="reportfile" title="The Report file." />
+        
+        </li>
+
+        <li class="two">
+            <h5>Upload the COPASI file</h5>
+            Please upload the copasi file, that was used to generate the report:
+            <label for="copasifile">The COPASI file that produced the report.</label>
+            <input type="file" id="copasifile" name="copasifile" title="The COPASI file that produced the report." />
+        
+        </li>
+
+        <li class="three">
+            <h5>(Optionally) upload your data file</h5>
+            You will get the option to execute the current solution statistics later, for that the data file is needed. <br />
+            <label for="datafile">Data file:</label><input type="file" id="datafile" name="datafile" title="The data file for the COPASI file." /> <br />
+            <label for="datafile1">additional Data file:</label><input type="file" id="datafile1" name="datafile1" title="Additional data file for the COPASI file." /><br />
+            <label for="datafile2">another Data file:</label><input type="file" id="datafile2" name="datafile2" title="Additional data file for the COPASI file." />
+        </li>
+
+        <li class="four">
+            <h5>Go!</h5>
+            <input type="submit" id="submit" title="Submit" name="submit" />
+        
+        </li>
+    </ol>
+}
+
+
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+
+
+  <script type="text/javascript">
+
+    $(function () {
+
+    });
+
+    function submitted() {
+        return true;
+    }
+
+  </script>
+}

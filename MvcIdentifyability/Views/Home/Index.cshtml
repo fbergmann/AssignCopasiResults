@@ -1,0 +1,94 @@
+﻿@model MvcIdentifyability.Models.GenerateOptions
+
+@{
+    ViewBag.Title = "Identifyability";
+}
+<h1>@ViewBag.Title.</h1>
+
+<p>
+This website uses <a href="http://www.copasi.org">COPASI</a> to gernerate (and perform) an identifyability 
+analysis of an already good fit. @Html.ActionLink("Learn more…", "About")
+</p>
+
+<h3>Lets get started</h3>
+
+@using (Html.BeginForm("Generate", "Home", FormMethod.Post, new {enctype = "multipart/form-data", onsubmit = "return submitted()"}))
+{
+    @Html.ValidationSummary(true)
+
+    <ol class="round">
+        <li class="one">
+            <h5>Upload the COPASI file</h5>
+            Please upload the copasi file, you would like to use:
+            <input type="file" id="copasifile" name="copasifile" title="The COPASI file with good fit." />
+        
+        </li>
+
+        <li class="two">
+            <h5>(Optionally) upload your data file</h5>
+            You will get the option to execute the analysis later on, if you specify the data file to be
+            used. Please keep in mind that the COPASI file references the data file in the same path. 
+            <input type="file" id="datafile" name="datafile" title="The data file for the COPASI file." />
+        </li>
+
+        <li class="three">
+            <h5>(Optionally) Tweak the parameters</h5>
+            There are a number of nuts and bolts to tighten or loosen as requierd take your pick: 
+        
+            <table style="border:none">
+                <tr>
+                    <td>Scan Interval</td>
+                    <td>@Html.EditorFor(model => model.ScanInterval) @Html.ValidationMessageFor(model => model.ScanInterval)</td>
+                </tr>
+                <tr>
+                    <td>Lower Multiplier</td>
+                    <td>@Html.EditorFor(model => model.LowerMultiplier) @Html.ValidationMessageFor(model => model.LowerMultiplier)</td>
+                </tr>
+                <tr>
+                    <td>Upper Multiplier</td>
+                    <td>@Html.EditorFor(model => model.UpperMultiplier) @Html.ValidationMessageFor(model => model.UpperMultiplier)</td>
+                </tr>
+                <tr>
+                    <td># Iterations of LM</td>
+                    <td>@Html.EditorFor(model => model.Iterations) @Html.ValidationMessageFor(model => model.Iterations)</td>
+                </tr>
+                <tr>
+                    <td>Levenberg Tolerance</td>
+                    <td>@Html.EditorFor(model => model.LMTolerance) @Html.ValidationMessageFor(model => model.LMTolerance)</td>
+                </tr>
+                <tr>
+                    <td>Modulation (experimental)</td>
+                    <td>@Html.EditorFor(model => model.Modulation) @Html.ValidationMessageFor(model => model.Modulation)</td>
+                </tr>
+                <tr>
+                    <td>Use Hooks & Jeeves instead (experimental)</td>
+                    <td>@Html.EditorFor(model => model.UseHooke) @Html.ValidationMessageFor(model => model.UseHooke)</td>
+                </tr>
+            </table>
+
+        </li>
+        <li class="four">
+            <h5>Go!</h5>
+            <input type="submit" id="submit" title="Submit" name="submit" />
+        
+        </li>
+    </ol>
+}
+
+
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+
+
+  <script type="text/javascript">
+
+    $(function () {
+
+    });
+
+    function submitted() {
+        return true;    }
+
+  </script>
+}

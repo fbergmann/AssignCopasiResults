@@ -1,0 +1,7 @@
+﻿@model MvcIdentifyability.Models.ResultModel 
+@{
+    ViewBag.Title = "Plot";
+    Layout = "~/Views/Shared/_Plain.cshtml";
+}
+
+@{ @Html.Action("PartialPlot", Model); }

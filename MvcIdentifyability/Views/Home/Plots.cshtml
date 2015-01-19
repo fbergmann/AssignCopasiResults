@@ -1,0 +1,47 @@
+﻿@model MvcIdentifyability.Models.ResultModel 
+@{
+    ViewBag.Title = "Plots";
+}
+
+<h2>Plot</h2>
+
+<table style="border:none">
+    
+    <tr>
+        <td>
+            @{ Html.RenderAction("PartialPlot", new  MvcIdentifyability.Models.ResultModel { FileName= Model.FileName, Index = 5 
+               , Width=400} ); }
+        </td>
+        <td>                         
+        <iframe src="@Url.Action("Plot", 
+                                 new MvcIdentifyability.Models.ResultModel { FileName = Model.FileName, Index = 6, })" frameborder="0" 
+            style="width: 400px; height:500px"></iframe>
+        </td>
+    </tr>
+
+</table>
+
+
+@{ Html.RenderAction("PartialPlot", Model); }
+
+
+@{ Html.RenderAction("PartialPlot", new  MvcIdentifyability.Models.ResultModel { FileName= Model.FileName, Index = 2 } ); }
+@{ Html.RenderAction("PartialPlot", new  MvcIdentifyability.Models.ResultModel { FileName= Model.FileName, Index = 3 } ); }
+@{ Html.RenderAction("PartialPlot", new  MvcIdentifyability.Models.ResultModel { FileName= Model.FileName, Index = 4 } ); }
+
+
+
+@section Scripts {
+  @Scripts.Render("~/bundles/jqueryval")
+
+  <script type="text/javascript">
+
+    $(function () {
+
+    });
+
+    function submitted() {
+        return true;    }
+
+  </script>
+}

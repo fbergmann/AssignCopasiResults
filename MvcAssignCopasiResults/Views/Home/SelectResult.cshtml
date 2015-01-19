@@ -1,0 +1,82 @@
+﻿@model LibCopasiResults.CopasiResult
+@using System.Globalization
+@using GridMvc.Html
+
+@{
+    ViewBag.Title = "SelectResult";
+}
+
+<h2>Select Result</h2>
+
+<p> Having uploaded the result, the next step is to select the result you would like to use for the 
+    changed model state / task start values. Simply click on the row you would like to assign to continue. 
+</p>
+<div>
+
+@Html.Grid(Model.Data).Columns(columns =>
+                                   {
+
+                                       columns.Add(item => item.BestValue).Titled("Best Value").Sortable(true).SortInitialDirection(GridMvc.Sorting.GridSortDirection.Ascending);
+                                       columns.Add(item => item.FunctionEvaluations).Titled("# Evaluations").Sortable(true);
+
+                                       for (int i = 0; i < Model.FittingItems.Count-1; i++)
+                                       {
+                                           int i1 = i;
+                                           columns.Add().RenderValueAs(item => item.Parameters[i1].ToString(CultureInfo.InvariantCulture)).Titled(Model.FittingItems[i1].Name).Sortable(true);
+                                       }
+
+
+                                   }).WithPaging(20)
+</div>
+
+
+<div class="jqui_accordion">
+<h3>About this Dataset</h3>
+<div>
+    <p>Is Optimization: @Model.IsOptimization</p>
+    <p>Is ParameterEstimation: @Model.IsParameterEstimation</p>
+    <p>NumFitItems: @Model.FittingItems.Count</p>
+    <p>NumCheckpoints: @Model.Data.Count</p>
+</div>
+</div>
+
+
+@section scripts
+    {
+    <script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"></script>
+
+    <script>       
+
+        $(function () {
+
+            var ajaxDialog = $('<div id="ajax-dialog" style="display:hidden"></div>').appendTo('body');
+            ajaxDialog.dialog({
+                autoOpen: false,
+                height: 600,
+                width: 750,
+                modal: true,
+                title: 'Result Selected',
+                buttons: {
+                    Close: function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            gridMvcControl.onRowSelect(function (row) {
+                ajaxDialog.load('@Url.Content("~/Home/ResultSelected/?selected=")' + row.BestValue);
+                ajaxDialog.dialog("open");
+                return false;
+            });
+
+
+            $(".jqui_accordion").accordion({
+                heightStyle: "content",
+                collapsible: true,
+                active:false
+
+            });
+        });
+    </script>
+
+}
